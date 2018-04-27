@@ -118,12 +118,9 @@ public class Add {
     return getSum(leftBorder, rightBorder, this::isOdd);
   }
 
+  //  把数组中每个元素乘三加上二，并求和
   public int getSumTripleAndAddTwo(List<Integer> arrayList) {
-    int result = 0;
-    for (int num : arrayList) {
-      result += multipliedByThreeAndAddedTwo(num);
-    }
-    return result;
+    return arrayList.stream().mapToInt(item -> item * 3 + 2).reduce(0, this::addTwoNum);
   }
 
   public List<Integer> getTripleOfOddAndAddTwo(List<Integer> arrayList) {
