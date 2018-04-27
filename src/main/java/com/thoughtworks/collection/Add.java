@@ -40,33 +40,15 @@ public class Add {
   }
 
   private List<Integer> getEvenIndexArray(List<Integer> arr) {
-    List<Integer> result = new ArrayList<>();
-    for (int i = 0; i < arr.size(); i++) {
-      if (i % 2 == 0) {
-        result.add(arr.get(i));
-      }
-    }
-    return result;
+    return arr.stream().filter(item -> this.isEven(arr.indexOf(item))).collect(Collectors.toList());
   }
 
   private List<Integer> getEvensArray(List<Integer> arr) {
-    List<Integer> result = new ArrayList<>();
-    for (int sum : arr) {
-      if (isEven(sum)) {
-        result.add(sum);
-      }
-    }
-    return result;
+    return arr.stream().filter(this::isEven).collect(Collectors.toList());
   }
 
   private List<Integer> getOddsArray(List<Integer> arr) {
-    List<Integer> result = new ArrayList<>();
-    for (int sum : arr) {
-      if (isOdd(sum)) {
-        result.add(sum);
-      }
-    }
-    return result;
+    return arr.stream().filter(this::isOdd).collect(Collectors.toList());
   }
 
   private int getMedianOfArray(List<Integer> arr) {
