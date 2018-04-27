@@ -129,18 +129,18 @@ public class Add {
     return arrayList.stream().map(item -> isOdd(item) ? Integer.valueOf(item * 3 + 2) : item).collect(Collectors.toList());
   }
 
+  //  求数组中奇数元素的3倍加5的和
   public int getSumOfProcessedOdds(List<Integer> arrayList) {
     return arrayList.stream().filter(this::isOdd).mapToInt(this::multipliedByThreeAndAddedFive)
         .reduce(0, this::addTwoNum);
   }
 
+  // 数组中前一个元素和后一个元素的和的3倍的数组
   public List<Integer> getProcessedList(List<Integer> arrayList) {
     List<Integer> result = new ArrayList<>();
     for (int i = 0; i < arrayList.size() - 1; i++) {
-      int curNum = arrayList.get(i);
-      int nexNum = arrayList.get(i + 1);
-      int sum = addTwoNum(multipliedByThree(curNum), multipliedByThree(nexNum));
-      result.add(sum);
+      int curNum = arrayList.get(i), nexNum = arrayList.get(i + 1);
+      result.add(addTwoNum(multipliedByThree(curNum), multipliedByThree(nexNum)));
     }
     return result;
   }
