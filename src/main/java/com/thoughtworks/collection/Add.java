@@ -130,13 +130,8 @@ public class Add {
   }
 
   public int getSumOfProcessedOdds(List<Integer> arrayList) {
-    int result = 0;
-    for (int num : arrayList) {
-      if (isOdd(num)) {
-        result += multipliedByThreeAndAddedFive(num);
-      }
-    }
-    return result;
+    return arrayList.stream().filter(this::isOdd).mapToInt(this::multipliedByThreeAndAddedFive)
+        .reduce(0, this::addTwoNum);
   }
 
   public List<Integer> getProcessedList(List<Integer> arrayList) {
