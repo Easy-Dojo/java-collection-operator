@@ -1,6 +1,7 @@
 package com.thoughtworks.collection;
 
 import java.util.*;
+import java.util.function.IntPredicate;
 import java.util.stream.IntStream;
 
 public class Add {
@@ -103,18 +104,20 @@ public class Add {
     return arr;
   }
 
-  //  求leftBorder到rightBorder之间的偶数和
-  public int getSumOfEvens(int leftBorder, int rightBorder) {
+  private Integer getSum(int leftBorder, int rightBorder, IntPredicate operator) {
     IntStream intStream = IntStream.range(smallerBetween(leftBorder, rightBorder),
         biggerBetween(leftBorder, rightBorder) + DILATANCY_NUMBER);
-    return intStream.filter(this::isEven).reduce(0, this::addTwoNum);
+    return intStream.filter(operator).reduce(0, this::addTwoNum);
+  }
+
+  //  求leftBorder到rightBorder之间的偶数和
+  public int getSumOfEvens(int leftBorder, int rightBorder) {
+    return getSum(leftBorder, rightBorder, this::isEven);
   }
 
   //  求leftBorder到rightBorder之间的基数和
   public int getSumOfOdds(int leftBorder, int rightBorder) {
-    IntStream intStream = IntStream.range(smallerBetween(leftBorder, rightBorder),
-        biggerBetween(leftBorder, rightBorder) + DILATANCY_NUMBER);
-    return intStream.filter(this::isOdd).reduce(0,this::addTwoNum);
+    return getSum(leftBorder, rightBorder, this::isOdd);
   }
 
   public int getSumTripleAndAddTwo(List<Integer> arrayList) {
