@@ -7,11 +7,11 @@ public class Add {
 
   private static final int DILATANCY_NUMBER = 1;
 
-  private int getSmallNum(int leftBorder, int rightBorder) {
+  private int smallerBetween(int leftBorder, int rightBorder) {
     return leftBorder < rightBorder ? leftBorder : rightBorder;
   }
 
-  private int getBigNum(int leftBorder, int rightBorder) {
+  private int biggerBetween(int leftBorder, int rightBorder) {
     return leftBorder > rightBorder ? leftBorder : rightBorder;
   }
 
@@ -105,20 +105,16 @@ public class Add {
 
   //  求leftBorder到rightBorder之间的偶数和
   public int getSumOfEvens(int leftBorder, int rightBorder) {
-    IntStream intStream = IntStream
-        .range(getSmallNum(leftBorder, rightBorder), getBigNum(leftBorder, rightBorder)+ DILATANCY_NUMBER);
-    return intStream.filter(item -> item % 2 == 0).reduce(0, (pre, cur) -> pre + cur);
+    IntStream intStream = IntStream.range(smallerBetween(leftBorder, rightBorder),
+        biggerBetween(leftBorder, rightBorder) + DILATANCY_NUMBER);
+    return intStream.filter(this::isEven).reduce(0, this::addTwoNum);
   }
 
+  //  求leftBorder到rightBorder之间的基数和
   public int getSumOfOdds(int leftBorder, int rightBorder) {
-    int sumOfOdds = 0;
-    for (int i = getSmallNum(leftBorder, rightBorder); i <= getBigNum(leftBorder, rightBorder);
-        i++) {
-      if (i % 2 != 0) {
-        sumOfOdds += i;
-      }
-    }
-    return sumOfOdds;
+    IntStream intStream = IntStream.range(smallerBetween(leftBorder, rightBorder),
+        biggerBetween(leftBorder, rightBorder) + DILATANCY_NUMBER);
+    return intStream.filter(this::isOdd).reduce(0,this::addTwoNum);
   }
 
   public int getSumTripleAndAddTwo(List<Integer> arrayList) {
