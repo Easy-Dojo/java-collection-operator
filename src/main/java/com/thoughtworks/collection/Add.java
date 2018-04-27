@@ -2,6 +2,7 @@ package com.thoughtworks.collection;
 
 import java.util.*;
 import java.util.function.IntPredicate;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Add {
@@ -120,19 +121,12 @@ public class Add {
 
   //  把数组中每个元素乘三加上二，并求和
   public int getSumTripleAndAddTwo(List<Integer> arrayList) {
-    return arrayList.stream().mapToInt(item -> item * 3 + 2).reduce(0, this::addTwoNum);
+    return arrayList.stream().mapToInt(this::multipliedByThreeAndAddedTwo).reduce(0, this::addTwoNum);
   }
 
+  //  求数组中奇数元素的3倍加2，偶数元素不变的数组
   public List<Integer> getTripleOfOddAndAddTwo(List<Integer> arrayList) {
-    List<Integer> result = new ArrayList<>();
-    for (int num : arrayList) {
-      if (isOdd(num)) {
-        result.add(multipliedByThreeAndAddedTwo(num));
-      } else {
-        result.add(num);
-      }
-    }
-    return result;
+    return arrayList.stream().map(item -> isOdd(item) ? Integer.valueOf(item * 3 + 2) : item).collect(Collectors.toList());
   }
 
   public int getSumOfProcessedOdds(List<Integer> arrayList) {
