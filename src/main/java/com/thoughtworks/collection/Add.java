@@ -6,8 +6,6 @@ import java.util.stream.IntStream;
 
 public class Add {
 
-  private static final int DILATANCY_NUMBER = 1;
-
   private int smallerBetween(int leftBorder, int rightBorder) {
     return leftBorder < rightBorder ? leftBorder : rightBorder;
   }
@@ -105,8 +103,8 @@ public class Add {
   }
 
   private Integer getSum(int leftBorder, int rightBorder, IntPredicate operator) {
-    IntStream intStream = IntStream.range(smallerBetween(leftBorder, rightBorder),
-        biggerBetween(leftBorder, rightBorder) + DILATANCY_NUMBER);
+    IntStream intStream = IntStream.rangeClosed(smallerBetween(leftBorder, rightBorder),
+        biggerBetween(leftBorder, rightBorder));
     return intStream.filter(operator).reduce(0, this::addTwoNum);
   }
 
