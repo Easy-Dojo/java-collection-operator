@@ -76,13 +76,11 @@ public class Add {
   }
 
   private List<Integer> ascSortArray(List<Integer> arr) {
-    Collections.sort(arr);
-    return arr;
+    return arr.stream().sorted().collect(Collectors.toList());
   }
 
   private List<Integer> descSortArray(List<Integer> arr) {
-    Collections.sort(arr, Comparator.reverseOrder());
-    return arr;
+    return arr.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
   }
 
   private Integer getSum(int leftBorder, int rightBorder, IntPredicate operator) {
