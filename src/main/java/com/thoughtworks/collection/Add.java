@@ -1,176 +1,201 @@
 package com.thoughtworks.collection;
 
 import java.util.*;
+import java.util.stream.IntStream;
 
 public class Add {
-    private int getSmallNum(int leftBorder, int rightBorder){
-        return leftBorder<rightBorder?leftBorder:rightBorder;
-    }
 
-    private int getBigNum(int leftBorder, int rightBorder){
-        return leftBorder>rightBorder?leftBorder:rightBorder;
-    }
-    private int multipliedByThreeAndAddedTwo(int num){
-        return num * 3 + 2;
-    }
-    private int multipliedByThreeAndAddedFive(int num) {
-        return num * 3 + 5;
-    }
-    private int multipliedByThree(int num){return num * 3;}
-    private int addTwoNum(int num1,int num2){return num1 + num2;}
-    private boolean isOdd(int num) {
-        return num % 2==0 ? false : true;
-    }
-    private boolean isEven(int num) {
-        return num % 2==0 ? true : false;
-    }
-    private List<Integer> getEvenIndexArray(List<Integer> arr){
-        List<Integer> result = new ArrayList<>();
-        for (int i = 0; i < arr.size(); i++) {
-            if (i % 2 == 0) {
-                result.add(arr.get(i));
-            }
-        }
-        return result;
-    }
-    private List<Integer> getEvensArray(List<Integer> arr){
-        List<Integer> result = new ArrayList<>();
-        for (int sum : arr) {
-            if (isEven(sum)) {
-                result.add(sum);
-            }
-        }
-        return result;
-    }
-    private List<Integer> getOddsArray(List<Integer> arr){
-        List<Integer> result = new ArrayList<>();
-        for (int sum : arr) {
-            if (isOdd(sum)) {
-                result.add(sum);
-            }
-        }
-        return result;
-    }
-    private int getMedianOfArray(List<Integer> arr) {
-        int result;
-        Collections.sort(arr);
-        int len = arr.size();
-        if (len % 2 == 0) {
-            int left = arr.get(len/2);
-            int right = arr.get(left+1);
-            result = (left+right)/2;
-        }else {
-            result = arr.get((len-1)/2);
-        }
-        return result;
-    }
-    private List<Integer> deDuplication(List<Integer> arr){
-        List<Integer> result = new ArrayList<>();
-        for (int num : arr) {
-            if (!result.contains(num)) {
-                result.add(num);
-            }
-        }
-        return result;
-    }
-    private List<Integer> ascSortArray(List<Integer> arr){
-        Collections.sort(arr);
-        return arr;
-    }
-    private List<Integer> descSortArray(List<Integer> arr) {
-        Collections.sort(arr, Comparator.reverseOrder());
-        return arr;
-    }
+  private static final int DILATANCY_NUMBER = 1;
 
-    public int getSumOfEvens(int leftBorder, int rightBorder) {
-        int sumOfEvens = 0;
-        for (int i = getSmallNum(leftBorder,rightBorder); i <= getBigNum(leftBorder,rightBorder); i++) {
-            if (i % 2 == 0) { sumOfEvens += i; }
-        }
-        return sumOfEvens;
-    }
+  private int getSmallNum(int leftBorder, int rightBorder) {
+    return leftBorder < rightBorder ? leftBorder : rightBorder;
+  }
 
-    public int getSumOfOdds(int leftBorder, int rightBorder) {
-        int sumOfOdds = 0;
-        for (int i = getSmallNum(leftBorder,rightBorder); i <= getBigNum(leftBorder,rightBorder); i++) {
-            if (i % 2 != 0) { sumOfOdds += i; }
-        }
-        return sumOfOdds;
-    }
+  private int getBigNum(int leftBorder, int rightBorder) {
+    return leftBorder > rightBorder ? leftBorder : rightBorder;
+  }
 
-    public int getSumTripleAndAddTwo(List<Integer> arrayList) {
-        int result = 0;
-        for (int num : arrayList) {
-            result += multipliedByThreeAndAddedTwo(num);
-        }
-        return result;
-    }
+  private int multipliedByThreeAndAddedTwo(int num) {
+    return num * 3 + 2;
+  }
 
-    public List<Integer> getTripleOfOddAndAddTwo(List<Integer> arrayList) {
-        List<Integer> result = new ArrayList<>();
-        for (int num : arrayList) {
-            if (isOdd(num)) {
-                result.add(multipliedByThreeAndAddedTwo(num));
-            }else {
-                result.add(num);
-            }
-        }
-        return result;
-    }
+  private int multipliedByThreeAndAddedFive(int num) {
+    return num * 3 + 5;
+  }
 
-    public int getSumOfProcessedOdds(List<Integer> arrayList) {
-        int result = 0;
-        for (int num : arrayList) {
-            if (isOdd(num)) { result += multipliedByThreeAndAddedFive(num); }
-        }
-        return result;
-    }
+  private int multipliedByThree(int num) {
+    return num * 3;
+  }
 
-    public List<Integer> getProcessedList(List<Integer> arrayList) {
-        List<Integer> result = new ArrayList<>();
-        for (int i = 0; i < arrayList.size() - 1; i++) {
-            int curNum = arrayList.get(i);
-            int nexNum = arrayList.get(i + 1);
-            int sum = addTwoNum(multipliedByThree(curNum),multipliedByThree(nexNum));
-            result.add(sum);
-        }
-        return result;
-    }
+  private int addTwoNum(int num1, int num2) {
+    return num1 + num2;
+  }
 
-    public double getMedianOfEvenIndex(List<Integer> arrayList) {
-        List<Integer> evenIndexArray = getEvenIndexArray(arrayList);
-        return (double) getMedianOfArray(evenIndexArray);
-    }
+  private boolean isOdd(int num) {
+    return num % 2 != 0;
+  }
 
-    public double getAverageOfEvenIndex(List<Integer> arrayList) {
-        List<Integer> evenIndexArray = getEvenIndexArray(arrayList);
-        int sum = 0;
-        int count = evenIndexArray.size();
-        for (int num : evenIndexArray) {
-            sum += num;
-        }
-        return sum/count;
-    }
+  private boolean isEven(int num) {
+    return num % 2 == 0;
+  }
 
-    public boolean isIncludedInEvenIndex(List<Integer> arrayList, Integer specialElement) {
-        List<Integer> evenIndexArray = getEvensArray(arrayList);
-        return evenIndexArray.contains(specialElement);
+  private List<Integer> getEvenIndexArray(List<Integer> arr) {
+    List<Integer> result = new ArrayList<>();
+    for (int i = 0; i < arr.size(); i++) {
+      if (i % 2 == 0) {
+        result.add(arr.get(i));
+      }
     }
+    return result;
+  }
 
-    public List<Integer> getUnrepeatedFromEvenIndex(List<Integer> arrayList) {
-        List<Integer> evensArray = getEvensArray(arrayList);
-        return deDuplication(evensArray);
+  private List<Integer> getEvensArray(List<Integer> arr) {
+    List<Integer> result = new ArrayList<>();
+    for (int sum : arr) {
+      if (isEven(sum)) {
+        result.add(sum);
+      }
     }
+    return result;
+  }
 
-    public List<Integer> sortByEvenAndOdd(List<Integer> arrayList) {
-        List<Integer> result = new ArrayList<>();
-        List<Integer> evensArray = getEvensArray(arrayList);
-        List<Integer> oddsArray = getOddsArray(arrayList);
-        List<Integer> ascSortedEvenArray = ascSortArray(evensArray);
-        List<Integer> descSortedOddArray = descSortArray(oddsArray);
-        result.addAll(ascSortedEvenArray);
-        result.addAll(descSortedOddArray);
-        return result;
+  private List<Integer> getOddsArray(List<Integer> arr) {
+    List<Integer> result = new ArrayList<>();
+    for (int sum : arr) {
+      if (isOdd(sum)) {
+        result.add(sum);
+      }
     }
+    return result;
+  }
+
+  private int getMedianOfArray(List<Integer> arr) {
+    int result;
+    Collections.sort(arr);
+    int len = arr.size();
+    if (len % 2 == 0) {
+      int left = arr.get(len / 2);
+      int right = arr.get(left + 1);
+      result = (left + right) / 2;
+    } else {
+      result = arr.get((len - 1) / 2);
+    }
+    return result;
+  }
+
+  private List<Integer> deDuplication(List<Integer> arr) {
+    List<Integer> result = new ArrayList<>();
+    for (int num : arr) {
+      if (!result.contains(num)) {
+        result.add(num);
+      }
+    }
+    return result;
+  }
+
+  private List<Integer> ascSortArray(List<Integer> arr) {
+    Collections.sort(arr);
+    return arr;
+  }
+
+  private List<Integer> descSortArray(List<Integer> arr) {
+    Collections.sort(arr, Comparator.reverseOrder());
+    return arr;
+  }
+
+  //  求leftBorder到rightBorder之间的偶数和
+  public int getSumOfEvens(int leftBorder, int rightBorder) {
+    IntStream intStream = IntStream
+        .range(getSmallNum(leftBorder, rightBorder), getBigNum(leftBorder, rightBorder)+ DILATANCY_NUMBER);
+    return intStream.filter(item -> item % 2 == 0).reduce(0, (pre, cur) -> pre + cur);
+  }
+
+  public int getSumOfOdds(int leftBorder, int rightBorder) {
+    int sumOfOdds = 0;
+    for (int i = getSmallNum(leftBorder, rightBorder); i <= getBigNum(leftBorder, rightBorder);
+        i++) {
+      if (i % 2 != 0) {
+        sumOfOdds += i;
+      }
+    }
+    return sumOfOdds;
+  }
+
+  public int getSumTripleAndAddTwo(List<Integer> arrayList) {
+    int result = 0;
+    for (int num : arrayList) {
+      result += multipliedByThreeAndAddedTwo(num);
+    }
+    return result;
+  }
+
+  public List<Integer> getTripleOfOddAndAddTwo(List<Integer> arrayList) {
+    List<Integer> result = new ArrayList<>();
+    for (int num : arrayList) {
+      if (isOdd(num)) {
+        result.add(multipliedByThreeAndAddedTwo(num));
+      } else {
+        result.add(num);
+      }
+    }
+    return result;
+  }
+
+  public int getSumOfProcessedOdds(List<Integer> arrayList) {
+    int result = 0;
+    for (int num : arrayList) {
+      if (isOdd(num)) {
+        result += multipliedByThreeAndAddedFive(num);
+      }
+    }
+    return result;
+  }
+
+  public List<Integer> getProcessedList(List<Integer> arrayList) {
+    List<Integer> result = new ArrayList<>();
+    for (int i = 0; i < arrayList.size() - 1; i++) {
+      int curNum = arrayList.get(i);
+      int nexNum = arrayList.get(i + 1);
+      int sum = addTwoNum(multipliedByThree(curNum), multipliedByThree(nexNum));
+      result.add(sum);
+    }
+    return result;
+  }
+
+  public double getMedianOfEvenIndex(List<Integer> arrayList) {
+    List<Integer> evenIndexArray = getEvenIndexArray(arrayList);
+    return (double) getMedianOfArray(evenIndexArray);
+  }
+
+  public double getAverageOfEvenIndex(List<Integer> arrayList) {
+    List<Integer> evenIndexArray = getEvenIndexArray(arrayList);
+    int sum = 0;
+    int count = evenIndexArray.size();
+    for (int num : evenIndexArray) {
+      sum += num;
+    }
+    return sum / count;
+  }
+
+  public boolean isIncludedInEvenIndex(List<Integer> arrayList, Integer specialElement) {
+    List<Integer> evenIndexArray = getEvensArray(arrayList);
+    return evenIndexArray.contains(specialElement);
+  }
+
+  public List<Integer> getUnrepeatedFromEvenIndex(List<Integer> arrayList) {
+    List<Integer> evensArray = getEvensArray(arrayList);
+    return deDuplication(evensArray);
+  }
+
+  public List<Integer> sortByEvenAndOdd(List<Integer> arrayList) {
+    List<Integer> result = new ArrayList<>();
+    List<Integer> evensArray = getEvensArray(arrayList);
+    List<Integer> oddsArray = getOddsArray(arrayList);
+    List<Integer> ascSortedEvenArray = ascSortArray(evensArray);
+    List<Integer> descSortedOddArray = descSortArray(oddsArray);
+    result.addAll(ascSortedEvenArray);
+    result.addAll(descSortedOddArray);
+    return result;
+  }
 
 }
