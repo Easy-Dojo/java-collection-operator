@@ -10,7 +10,7 @@ public class InverseReduce {
 
     public InverseReduce() {}
 
-    public InverseReduce(Random random) {
+    InverseReduce(Random random) {
         this.random = random;
     }
 
