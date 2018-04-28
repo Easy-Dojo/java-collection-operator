@@ -12,23 +12,20 @@ public class MyMap {
             "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
     private List<String> letterList = Arrays.asList(letters);
 
-    public MyMap(List<Integer> array) {
+    MyMap(List<Integer> array) {
         this.array = array;
     }
 
     private String transNumToStr(int num) {
-        String result = null;
         if(num>=1&&num<=26){
             return letterList.get(num-1);
         } else if (num > 26) {
             int merchant = num/26;
             int remainder = num%26;
-            if(remainder == 0){
-                return transNumToStr(merchant-1) + transNumToStr(26);
-            }else {
-                return transNumToStr(merchant) + transNumToStr(remainder);}
+            return remainder == 0 ? transNumToStr(merchant - 1) + transNumToStr(26)
+                : transNumToStr(merchant) + transNumToStr(remainder);
         }
-        return result;
+        return null;
     }
 
     public List<Integer> getTriple() {
@@ -40,7 +37,7 @@ public class MyMap {
     }
 
     public List<String> mapLetters() {
-        return array.stream().map(num -> transNumToStr(num)).collect(Collectors.toList());
+        return array.stream().map(this::transNumToStr).collect(Collectors.toList());
     }
 
     public List<Integer> sortFromBig() {
