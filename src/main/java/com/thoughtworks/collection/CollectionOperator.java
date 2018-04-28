@@ -44,9 +44,9 @@ public class CollectionOperator {
   public List<Integer> getListByInterval(int left, int right) {
     Stream<Integer> integerStream = IntStream
         .rangeClosed(smallerOf(left, right), biggerOf(left, right)).boxed();
-    return left < right ? integerStream.collect(Collectors.toList())
-        : integerStream.sorted(Comparator.reverseOrder())
-            .collect(Collectors.toList());
+    return (left < right ? integerStream
+        : integerStream.sorted(Comparator.reverseOrder()))
+        .collect(Collectors.toList());
   }
 
   private Integer biggerOf(int left, int right) {
@@ -57,9 +57,13 @@ public class CollectionOperator {
     return left < right ? left : right;
   }
 
+  //  选出给定区间中所有的偶数
   public List<Integer> getEvenListByIntervals(int left, int right) {
-    List<Integer> listByInterval = getListByInterval(left, right);
-    return getEvensArray(listByInterval);
+    Stream<Integer> integerStream = IntStream
+        .rangeClosed(smallerOf(left, right), biggerOf(left, right)).filter(this::isEven).boxed();
+    return (left < right ? integerStream
+        : integerStream.sorted(Comparator.reverseOrder()))
+        .collect(Collectors.toList());
   }
 
   public List<Integer> popEvenElments(int[] array) {
