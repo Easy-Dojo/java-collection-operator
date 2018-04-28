@@ -7,29 +7,28 @@ public class Filter {
 
     List<Integer>  array;
 
-    public Filter(List<Integer> array) {
+    Filter(List<Integer> array) {
      this.array = array;
     }
 
     private boolean isEven(int num){
-        return num % 2 == 0 ? true : false;
+        return num % 2 == 0;
     }
     private boolean isTripleNum(int num){
-        return num % 3 == 0 ? true : false;
+        return num % 3 == 0;
     }
 
 
     public List<Integer> filterEven() {
-        List<Integer> result = array.stream().filter( num -> isEven(num)).collect(Collectors.toList());
-        return result;
+      return array.stream().filter(this::isEven).collect(Collectors.toList());
     }
 
     public List<Integer> filterMultipleOfThree() {
-        return array.stream().filter( num -> isTripleNum(num)).collect(Collectors.toList());
+        return array.stream().filter(this::isTripleNum).collect(Collectors.toList());
     }
 
     public List<Integer> getCommonElements(List<Integer> firstList, List<Integer> secondList) {
-        return firstList.stream().filter(num->secondList.contains(num)).collect(Collectors.toList());
+        return firstList.stream().filter(secondList::contains).collect(Collectors.toList());
     }
 
     public List<Integer> getDifferentElements() {
