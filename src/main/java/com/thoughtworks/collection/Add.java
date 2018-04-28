@@ -51,18 +51,12 @@ public class Add {
     return arr.stream().filter(this::isOdd).collect(Collectors.toList());
   }
 
-  private int getMedianOfArray(List<Integer> arr) {
-    int result;
-    Collections.sort(arr);
-    int len = arr.size();
-    if (len % 2 == 0) {
-      int left = arr.get(len / 2);
-      int right = arr.get(left + 1);
-      result = (left + right) / 2;
-    } else {
-      result = arr.get((len - 1) / 2);
-    }
-    return result;
+  private Integer getMedianOfArray(List<Integer> arr) {
+    List<Integer> ascSortedArray = ascSortArray(arr);
+    int len = ascSortedArray.size();
+    return isEven(len) ?
+        (ascSortedArray.get(len / 2) + ascSortedArray.get(ascSortedArray.get(len / 2) + 1)) / 2
+        : ascSortedArray.get((len - 1) / 2);
   }
 
   private List<Integer> deDuplication(List<Integer> arr) {
@@ -101,12 +95,14 @@ public class Add {
 
   //  把数组中每个元素乘三加上二，并求和
   public int getSumTripleAndAddTwo(List<Integer> arrayList) {
-    return arrayList.stream().mapToInt(this::multipliedByThreeAndAddedTwo).reduce(0, this::addTwoNum);
+    return arrayList.stream().mapToInt(this::multipliedByThreeAndAddedTwo)
+        .reduce(0, this::addTwoNum);
   }
 
   //  求数组中奇数元素的3倍加2，偶数元素不变的数组
   public List<Integer> getTripleOfOddAndAddTwo(List<Integer> arrayList) {
-    return arrayList.stream().map(item -> isOdd(item) ? Integer.valueOf(item * 3 + 2) : item).collect(Collectors.toList());
+    return arrayList.stream().map(item -> isOdd(item) ? Integer.valueOf(item * 3 + 2) : item)
+        .collect(Collectors.toList());
   }
 
   //  求数组中奇数元素的3倍加5的和
@@ -125,6 +121,7 @@ public class Add {
     return result;
   }
 
+  //  求数组中所有偶数组成的数组的中位数
   public double getMedianOfEvenIndex(List<Integer> arrayList) {
     List<Integer> evenIndexArray = getEvenIndexArray(arrayList);
     return (double) getMedianOfArray(evenIndexArray);
