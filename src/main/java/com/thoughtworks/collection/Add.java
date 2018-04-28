@@ -127,14 +127,10 @@ public class Add {
     return (double) getMedianOfArray(evenIndexArray);
   }
 
+  //  求数组中所有偶数的平均数
   public double getAverageOfEvenIndex(List<Integer> arrayList) {
     List<Integer> evenIndexArray = getEvenIndexArray(arrayList);
-    int sum = 0;
-    int count = evenIndexArray.size();
-    for (int num : evenIndexArray) {
-      sum += num;
-    }
-    return sum / count;
+    return evenIndexArray.stream().collect(Collectors.averagingInt(item -> item));
   }
 
   public boolean isIncludedInEvenIndex(List<Integer> arrayList, Integer specialElement) {
