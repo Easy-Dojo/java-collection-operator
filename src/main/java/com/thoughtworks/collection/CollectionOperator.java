@@ -14,29 +14,16 @@ public class CollectionOperator {
     return num % 2 == 0;
   }
 
-  private List<Integer> getEvensArray(List<Integer> arr) {
-    List<Integer> result = new ArrayList<>();
-    for (int num : arr) {
-      if (isEven(num)) {
-        result.add(num);
-      }
-    }
-    return result;
-  }
-
   private boolean isContainedIntArray(int num, int[] arr) {
-    List list = new ArrayList<String>();
-    for (int i = 0; i < arr.length; i++) {
-      list.add(arr[i]);
+    List<Integer> list = new ArrayList<>();
+    for (int anArr : arr) {
+      list.add(anArr);
     }
     return list.contains(num);
   }
 
   private boolean isContainedIntegerArray(Integer num, Integer[] arr) {
-    List list = new ArrayList<String>();
-    for (int i = 0; i < arr.length; i++) {
-      list.add(arr[i]);
-    }
+    List<Integer> list = new ArrayList<>(Arrays.asList(arr));
     return list.contains(num);
   }
 
@@ -76,6 +63,7 @@ public class CollectionOperator {
     return array[array.length - 1];
   }
 
+  //  弹出两个集合的交集
   public List<Integer> popCommonElement(int[] firstArray, int[] secondArray) {
     List<Integer> result = new ArrayList<>();
     for (int num : firstArray) {
