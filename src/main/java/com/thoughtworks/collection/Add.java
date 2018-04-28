@@ -60,13 +60,8 @@ public class Add {
   }
 
   private List<Integer> deDuplication(List<Integer> arr) {
-    List<Integer> result = new ArrayList<>();
-    for (int num : arr) {
-      if (!result.contains(num)) {
-        result.add(num);
-      }
-    }
-    return result;
+    Set<Integer> collectionWithoutDuplicates = new HashSet<>(arr);
+    return new ArrayList<>(collectionWithoutDuplicates);
   }
 
   private List<Integer> ascSortArray(List<Integer> arr) {
@@ -133,11 +128,13 @@ public class Add {
     return evenIndexArray.stream().collect(Collectors.averagingInt(item -> item));
   }
 
+  //  求数组中所有偶数组成的数组是否包含某特定的数specialElment
   public boolean isIncludedInEvenIndex(List<Integer> arrayList, Integer specialElement) {
     List<Integer> evenIndexArray = getEvensArray(arrayList);
     return evenIndexArray.contains(specialElement);
   }
 
+  //  去除数组中所有偶数组成的数组的重复数
   public List<Integer> getUnrepeatedFromEvenIndex(List<Integer> arrayList) {
     List<Integer> evensArray = getEvensArray(arrayList);
     return deDuplication(evensArray);
