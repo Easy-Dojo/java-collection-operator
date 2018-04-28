@@ -71,9 +71,9 @@ public class CollectionOperator {
     return Arrays.stream(array).filter(this::isEven).boxed().collect(Collectors.toList());
   }
 
-  public int popLastElment(int[] array) {
-    int index = array.length - 1;
-    return array[index];
+  //  弹出集合最后一个元素
+  public int popLastElement(int[] array) {
+    return array[array.length - 1];
   }
 
   public List<Integer> popCommonElement(int[] firstArray, int[] secondArray) {
