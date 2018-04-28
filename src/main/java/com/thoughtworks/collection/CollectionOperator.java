@@ -66,14 +66,9 @@ public class CollectionOperator {
         .collect(Collectors.toList());
   }
 
-  public List<Integer> popEvenElments(int[] array) {
-    List<Integer> result = new ArrayList<>();
-    for (int num : array) {
-      if (isEven(num)) {
-        result.add(num);
-      }
-    }
-    return result;
+  //  选出给定区间中所有的偶数
+  public List<Integer> popEvenElements(int[] array) {
+    return Arrays.stream(array).filter(this::isEven).boxed().collect(Collectors.toList());
   }
 
   public int popLastElment(int[] array) {
